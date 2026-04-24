@@ -40,6 +40,14 @@
         </div>
     @endif
 
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+
     {{-- Tabla de Inventario Mejorada --}}
     <div class="card p-4 mb-5">
         <table class="table table-hover text-center">

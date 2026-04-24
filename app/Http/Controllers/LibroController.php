@@ -93,22 +93,17 @@ class LibroController extends Controller
     {
         $libro = \App\Models\Libro::findOrFail($id);
 
-        // 1. Revisar si hay préstamos ACTIVOS
         $prestamosActivos = \App\Models\Prestamo::where('libro_id', $id)
                                 ->where('estado', 'prestado')
                                 ->count();
 
         if ($prestamosActivos > 0) {
-            // Si alguien lo tiene ahorita, detenemos la eliminación
-            return back()->withErrors(['error' => 'No puedes borrar el libro "' . $libro->titulo . '" porque alguien lo tiene prestado actualmente.']);
+ 
+            return back()->with('error', 'No puedes borrar el libro "' . $libro->titulo . '" porque alguien lo tiene prestado actualmente.');
         }
 
-        // 2. Aplicar la Opción B: Borrar el historial de préstamos pasados
-        \App\Models\Prestamo::where('libro_id', $id)->delete();
-
-        // 3. Ahora sí, borrar el libro de forma segura
         $libro->delete();
 
-        return redirect()->route('libros.index')->with('success', 'El libro fue eliminado correctamente. ');
+        return back()->with('success', 'Libro eliminado del inventario con éxito.');
     }
 }
