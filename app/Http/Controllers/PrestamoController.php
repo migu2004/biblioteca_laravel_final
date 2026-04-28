@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Prestamo; // Importante añadir estos modelos
+use App\Models\Prestamo;
 use App\Models\Libro;
 use App\Models\User;
 
@@ -26,12 +26,12 @@ class PrestamoController extends Controller
         // buscamos el libro para saber cuanto hay en su stock total
         $libro = Libro::findOrFail($request->libro_id);
 
-        // Contamos cuántos de esos libros están prestados
+        // Contamos los libros que están prestados
         $prestamosActivos = Prestamo::where('libro_id', $request->libro_id)
                         ->where('estado', 'prestado')
                         ->count();
 
-        // Verificamos si los préstamos ya alcanzaron el límite del stock total
+        // Verificamos stock total
         if ($prestamosActivos >= $libro->cantidad) {
             return back()->withErrors(['error' => '¡Lo sentimos! Ya no quedan copias disponibles de este libro.']);
         }

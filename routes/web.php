@@ -13,7 +13,7 @@ Route::resource('libros', LibroController::class)->middleware('auth');
     Route::post('/prestamos', [PrestamoController::class, 'store'])->name('prestamos.store');
     Route::post('/prestamos/{id}/devolver', [PrestamoController::class, 'devolver'])->name('prestamos.devolver');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::post('/prestamos/{id}/devolver', [App\Http\Controllers\PrestamoController::class, 'devolver'])->name('prestamos.devolver');
+    
 });
 
 // Ruta para formulario

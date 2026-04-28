@@ -12,7 +12,6 @@ class LibroController extends Controller
      */
     public function index()
     {
-        // Traemos los libros y contamos solo los préstamos que NO se han devuelto
         $libros = \App\Models\Libro::withCount(['prestamos as prestados' => function ($query) {
             $query->where('estado', 'prestado');
         }])->get();

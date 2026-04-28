@@ -48,7 +48,6 @@
     @endif
 
 
-    {{-- Tabla de Inventario Mejorada --}}
     <div class="card p-4 mb-5">
         <table class="table table-hover text-center">
             <thead>
